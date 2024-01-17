@@ -13,6 +13,7 @@ const FeaturedItem = () => {
                     <p>11 July, 1995</p>
                     <h6>Where Can I Get Some?</h6>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae optio, aspernatur voluptate neque nemo saepe quia possimus, explicabo quaerat hic asperiores. Temporibus excepturi vitae quia dignissimos accusamus culpa mollitia ratione aspernatur ad quasi. Deleniti optio omnis nesciunt ratione dolorum, nemo, ipsa nostrum illum esse, facere id a corporis. Accusamus, incidunt.</p>
+                    <button className="btn btn-outline">Default</button>
                 </div>
             </div>
         </div>
