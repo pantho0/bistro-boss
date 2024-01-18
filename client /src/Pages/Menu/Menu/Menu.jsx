@@ -21,10 +21,10 @@ const Menu = () => {
         <title>BISTRO BOSS || MENU</title>
       </Helmet>
       <MenuCategory items={offered} subHeading={"Don't Miss"} heading={"Today's Offer"} img={menuImg} title={"Our Menu"}/>
-      <MenuCategory items={desserts} img={dessertImg} title={"Desserts"}/>
-      <MenuCategory items={pizzas} img={pizzaImg} title={"Pizza"}/>
-      <MenuCategory items={salads} img={saladImg} title={"Salad"}/>
-      <MenuCategory items={soups} img={soupImg} title={"Soups"}/>
+      <MenuCategory items={desserts} img={dessertImg} title={"desserts"}/>
+      <MenuCategory items={pizzas} img={pizzaImg} title={"pizza"}/>
+      <MenuCategory items={salads} img={saladImg} title={"salad"}/>
+      <MenuCategory items={soups} img={soupImg} title={"soups"}/>
    
     </div>
   );
