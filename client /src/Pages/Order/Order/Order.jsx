@@ -8,7 +8,7 @@ import FoodItem from "../../../Components/FoodCard/FoodItem";
 import { useParams } from "react-router-dom";
 
 const Order = () => {
-  const categories = ['salads', 'pizzas', 'soups', 'desserts', 'drinks']
+  const categories = ['salad', 'pizza', 'soup', 'dessert', 'drinks']
   const {category} = useParams()
   const initialIndex = categories.indexOf(category)
   const [tabIndex, setTabIndex] = useState(initialIndex);
@@ -22,7 +22,7 @@ const Order = () => {
   return (
     <div>
       <Cover img={orderCoverImg} title={"Order Your Food"} />
-      <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+      <Tabs selectedIndex={tabIndex} onSelect={(initialIndex) => setTabIndex(initialIndex)}>
         <TabList>
           <Tab>SALAD</Tab>
           <Tab>PIZZA</Tab>
