@@ -1,4 +1,25 @@
+import { useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha, LoadCanvasTemplateNoReload } from 'react-simple-captcha';
+
 const Login = () => {
+    const [disabled, setDisabled] = useState(true)
+    useEffect(()=>{
+      loadCaptchaEnginge(6)
+    },[])
+    const captchaTXT = useRef(null)
+
+
+    const handleValidate = () =>{
+      const user_captcha_value = captchaTXT.current.value;
+      console.log(user_captcha_value);
+      if (validateCaptcha(user_captcha_value)==true) {
+        setDisabled(false)
+    }
+    else {
+        setDisabled(true)
+    }
+    }
+
     const handleLogin = e =>{
         e.preventDefault()
         const form = e.target;
@@ -37,19 +58,31 @@ const Login = () => {
               </label>
               <input
                 type="password"
-                name="password"
+                name="password"   
                 placeholder="password"
                 className="input input-bordered"
                 required
               />
+            </div>
+            <div className="form-control">
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
+              <LoadCanvasTemplateNoReload/>
               </label>
+              <div>
+              </div>
+              <input
+                type="text"
+                name="captcha"
+                onBlur={handleValidate} 
+                ref={captchaTXT}
+                placeholder="Type the captcha above"
+                className="input input-bordered"
+                required
+              />
+              {/* <button onClick={handleValidate} className="btn btn-xs">Tiny</button> */}
             </div>
             <div className="form-control mt-6">
-              <input className="btn btn-primary" type="submit" value="Login" />
+              <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
             </div>
           </form>
         </div>
