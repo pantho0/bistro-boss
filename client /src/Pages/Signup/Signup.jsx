@@ -1,22 +1,17 @@
-import { useContext, useEffect, useRef, useState } from 'react';
-import { loadCaptchaEnginge, validateCaptcha, LoadCanvasTemplateNoReload } from 'react-simple-captcha';
+import { useContext} from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form"
 
 const Signup = () => {
     const {user, loading} = useContext(AuthContext)
+    const {register,handleSubmit,watch,formState: { errors }} = useForm()
     
-   
-
-    const handleSignup = e =>{
-        e.preventDefault()
-        const form = e.target;
-        const name = form.name.value;
-        const image = form.image.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password);
+    const onSubmit = (data) => {
+        console.log(data)
     }
+
+    
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -29,7 +24,7 @@ const Signup = () => {
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form onSubmit={handleSignup} className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -39,20 +34,9 @@ const Signup = () => {
                 name="name"
                 placeholder="Enter Your Name Here"
                 className="input input-bordered"
-                required
+                {...register("name", {required:true})}
               />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Picture</span>
-              </label>
-              <input
-                type="text"
-                name="picture"
-                placeholder="upload your picture"
-                className="input input-bordered"
-                required
-              />
+              {errors.name && <span className='text-red-500 text-center mt-2'>Name field is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
@@ -63,8 +47,9 @@ const Signup = () => {
                 name="email"
                 placeholder="email"
                 className="input input-bordered"
-                required
+                {...register("email", {required:true})}
               />
+              {errors.email && <span className='text-red-500 text-center mt-2'>Email field is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
@@ -75,8 +60,9 @@ const Signup = () => {
                 name="password"   
                 placeholder="password"
                 className="input input-bordered"
-                required
+                {...register("password", {required:true, maxLength:5})}
               />
+              {errors.password && <span className='text-red-500 text-center mt-2'>Password field is required</span>}
             </div>
 
             <div className="form-control mt-6">
