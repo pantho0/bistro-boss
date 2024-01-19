@@ -20,7 +20,7 @@ const Menu = () => {
       <Helmet>
         <title>BISTRO BOSS || MENU</title>
       </Helmet>
-      <MenuCategory items={offered} subHeading={"Don't Miss"} heading={"Today's Offer"} img={menuImg} title={"Our Menu"}/>
+      <MenuCategory items={offered} subHeading={"Don't Miss"} heading={"Today's Offer"} img={menuImg} title={"salad"}/>
       <MenuCategory items={desserts} img={dessertImg} title={"desserts"}/>
       <MenuCategory items={pizzas} img={pizzaImg} title={"pizza"}/>
       <MenuCategory items={salads} img={saladImg} title={"salad"}/>
