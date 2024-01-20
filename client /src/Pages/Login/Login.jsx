@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, validateCaptcha, LoadCanvasTemplateNoReload } from 'react-simple-captcha';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const {user, loading} = useContext(AuthContext)
@@ -32,6 +33,10 @@ const Login = () => {
         console.log(email, password);
     }
   return (
+    <>
+    <Helmet>
+        <title>BISTRO BOSS || Login</title>
+      </Helmet>
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
@@ -92,6 +97,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
