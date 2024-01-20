@@ -1,22 +1,22 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, validateCaptcha, LoadCanvasTemplateNoReload } from 'react-simple-captcha';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const {user, loading} = useContext(AuthContext)
+    const {user, signIn} = useContext(AuthContext)
     
     const [disabled, setDisabled] = useState(true)
     useEffect(()=>{
       loadCaptchaEnginge(6)
     },[])
-    const captchaTXT = useRef(null)
 
 
-    const handleValidate = () =>{
-      const user_captcha_value = captchaTXT.current.value;
-      console.log(user_captcha_value);
+
+    const handleValidate = (e) =>{
+      const user_captcha_value = e.target.value;
       if (validateCaptcha(user_captcha_value)==true) {
         setDisabled(false)
     }
@@ -30,7 +30,19 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        signIn(email, password)
+        .then(user=>{
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Login SUccess",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+        .catch(error=>{
+          console.log(error.meassage)
+        })
     }
   return (
     <>
@@ -83,7 +95,6 @@ const Login = () => {
                 type="text"
                 name="captcha"
                 onBlur={handleValidate} 
-                ref={captchaTXT}
                 placeholder="Type the captcha above"
                 className="input input-bordered"
                 required
