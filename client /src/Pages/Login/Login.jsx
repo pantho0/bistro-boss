@@ -9,8 +9,8 @@ const Login = () => {
     const {user, signIn} = useContext(AuthContext)
     const location = useLocation();
     const navigate = useNavigate()
-    const from = location.state.from.pathname || "/";
-    console.log(location.state.from.pathname);
+    const from = location.state?.from?.pathname || "/";
+
     
     const [disabled, setDisabled] = useState(true)
     useEffect(()=>{
@@ -39,7 +39,7 @@ const Login = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Login SUccess",
+            title: `Login SUccess${user?.email}`,
             showConfirmButton: false,
             timer: 1500
           })
