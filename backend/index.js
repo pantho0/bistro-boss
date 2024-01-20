@@ -29,6 +29,7 @@ async function run() {
     await client.connect();
     const menuCollection = client.db("bistroDB").collection("menu")
     const reviewCollection = client.db("bistroDB").collection("reviews")
+    const cartCollection = client.db("bistroDB").collection("carts")
 
     //to load all menu items
     app.get("/menu", async(req,res)=>{
@@ -40,7 +41,17 @@ async function run() {
       const result = await reviewCollection.find().toArray()
       res.send(result)
     })
-
+    //to get individual users cart length
+    app.get('/carts', async(req,res)=>{
+      const result = await cartCollection.find().toArray()
+      res.send(result)
+    })
+    //to save cart item in DB 
+    app.post('/carts', async(req,res)=>{
+      const cartItem = req.body;
+      const result = await cartCollection.insertOne(cartItem)
+      res.send(result)
+    })
 
 
 

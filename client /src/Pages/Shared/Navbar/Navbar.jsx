@@ -4,43 +4,52 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const {user,logOut} = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
-  const handleLogout = () =>{
-     console.log('clicked');
-     logOut()
-     .then(()=>{
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Log Out Success",
-        showConfirmButton: false,
-        timer: 1500
+  const handleLogout = () => {
+    console.log("clicked");
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Log Out Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error, "Error Happened");
       });
-     })
-     .catch(error=>{
-      console.log(error,'Error Happened');
-     })
-  }
+  };
   const navOptions = (
     <div className="flex items-center">
       <li>
-        <Link to={'/'}>Home</Link>
+        <Link to={"/"}>Home</Link>
       </li>
       <li>
-      <Link to={'/menu'}>Our Menu</Link>
+        <Link to={"/menu"}>Our Menu</Link>
       </li>
       <li>
-      <Link to={'/order/salad'}>Order</Link>
+        <Link to={"/order/salad"}>Order</Link>
       </li>
       <li>
-      <Link to={'/secret'}>Secret</Link>
+        <Link to={"/secret"}>Secret</Link>
       </li>
-      {
-        user? <><button onClick={handleLogout} className="btn btn-sm bg-transparent text-white">Logout</button></>
-        :
-        <><Link to={'/login'}>Login</Link></>
-      }
+      {user ? (
+        <>
+          <button
+            onClick={handleLogout}
+            className="btn btn-sm bg-transparent text-white"
+          >
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <Link to={"/login"}>Login</Link>
+        </>
+      )}
     </div>
   );
   return (
@@ -77,7 +86,20 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Search</a>
+          {user && (
+            <>
+              <button
+                aria-readonly
+                className="btn btn-xs bg-black cursor-wait text-white border-violet-800 hover:bg-violet-800 hover:border-black"
+              >
+                {user?.displayName}
+              </button>
+              <button className="btn btn-xs bg-black text-white border-none hover:text-black">
+                Inbox
+                <div className="badge badge-secondary bg-orange-600">+0</div>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>
