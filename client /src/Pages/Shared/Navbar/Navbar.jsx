@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useCart from "../../../Hooks /useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+  const [cart] = useCart()
   const handleLogout = () => {
     console.log("clicked");
     logOut()
@@ -96,7 +97,7 @@ const Navbar = () => {
               </button>
               <button className="btn btn-xs bg-black text-white border-none hover:text-black">
                 Inbox
-                <div className="badge badge-secondary bg-orange-600">+0</div>
+                <div className="badge badge-secondary bg-orange-600">+{cart.length}</div>
               </button>
             </>
           )}
