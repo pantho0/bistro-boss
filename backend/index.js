@@ -43,7 +43,9 @@ async function run() {
     })
     //to get individual users cart length
     app.get('/carts', async(req,res)=>{
-      const result = await cartCollection.find().toArray()
+      const email = req.query.email;
+      const query = {email:email}
+      const result = await cartCollection.find(query).toArray()
       res.send(result)
     })
     //to save cart item in DB 
