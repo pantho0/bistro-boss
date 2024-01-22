@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks /useAxiosPublic";
+import GoogleSIgnIn from "../../Components/SocialLoginButtons/GoogleSIgnIn";
 
 const Signup = () => {
   const { createUser, profileUpdate } = useContext(AuthContext);
@@ -156,6 +157,8 @@ const Signup = () => {
                   value="Signup"
                 />
               </div>
+              <div className="divider">OR</div>
+              <GoogleSIgnIn/>
               <p className="text-center">
                 <small>
                   Already have an account{" "}
@@ -168,6 +171,7 @@ const Signup = () => {
                 </small>
               </p>
             </form>
+            
           </div>
         </div>
       </div>
