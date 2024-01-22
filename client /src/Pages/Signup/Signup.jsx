@@ -4,10 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks /useAxiosPublic";
 
 const Signup = () => {
   const { createUser, profileUpdate } = useContext(AuthContext);
   const navigate = useNavigate()
+  const axiosPublic = useAxiosPublic()
   const {
     register,
     handleSubmit,
@@ -19,6 +21,14 @@ const Signup = () => {
     createUser(data.email, data.password)
     .then(res=>{
       console.log(res.user)
+      const userInfo={
+        name: data.name,
+        email: data.email
+      }
+      axiosPublic.post('/users', userInfo)
+      .then(res=>{
+        console.log(res.data);
+      })
       profileUpdate(data.name, data.photoUrl)
       .then(()=>{
         Swal.fire({
