@@ -4,6 +4,7 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import { Link,useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import GoogleSIgnIn from '../../Components/SocialLoginButtons/GoogleSIgnIn';
 
 const Login = () => {
     const {signIn} = useContext(AuthContext)
@@ -110,6 +111,8 @@ const Login = () => {
             </div>
             <p className='text-center'><small>Don&apos;t Have an account <Link to={'/signup'} className='text-orange-600 cursor-pointer font-bold'>Sign Up Here</Link></small></p>
           </form>
+          <div className="divider">OR</div>
+              <GoogleSIgnIn/>
         </div>
       </div>
     </div>

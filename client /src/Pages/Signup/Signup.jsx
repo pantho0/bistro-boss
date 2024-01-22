@@ -157,8 +157,6 @@ const Signup = () => {
                   value="Signup"
                 />
               </div>
-              <div className="divider">OR</div>
-              <GoogleSIgnIn/>
               <p className="text-center">
                 <small>
                   Already have an account{" "}
@@ -171,7 +169,8 @@ const Signup = () => {
                 </small>
               </p>
             </form>
-            
+            <div className="divider">OR</div>
+              <GoogleSIgnIn/>
           </div>
         </div>
       </div>
