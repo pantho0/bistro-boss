@@ -1,6 +1,6 @@
-import { FaHome, FaShoppingCart } from "react-icons/fa";
+import { FaHome, FaList, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { TbBrandBooking } from "react-icons/tb";
-import { FaRegPenToSquare, FaRegStarHalfStroke } from "react-icons/fa6";
+import { FaBook, FaRegPenToSquare, FaRegStarHalfStroke } from "react-icons/fa6";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks /useCart";
@@ -8,11 +8,43 @@ import useCart from "../Hooks /useCart";
 
 const Dashboard = () => {
   const [cart] = useCart()
+  const isAdmin = true;
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-orange-400">
         <ul className="menu p-4">
+          {
+            isAdmin ?
+            <>
+            <li className="p-2">
+            <NavLink to="/dashboard/adminhome">
+              <FaHome size={20} /> Admin Home
+            </NavLink>
+          </li>
           <li className="p-2">
+            <NavLink to="/dashboard/addItems">
+              <FaUtensils size={20} /> Add Items
+            </NavLink>
+          </li>
+          <li className="p-2">
+            <NavLink to="/dashboard/manageItems">
+              <FaList size={20} /> Manage Items
+            </NavLink>
+          </li>
+          <li className="p-2">
+            <NavLink to="/dashboard/manageBookings">
+              <FaBook size={20} /> Manage Bookings
+            </NavLink>
+          </li>
+          <li className="p-2">
+            <NavLink to="/dashboard/allUsers">
+              <FaUsers size={20}/> All Users
+            </NavLink>
+          </li>
+            </>
+            :
+            <>
+            <li className="p-2">
             <NavLink to="/dashboard/userhome">
               <FaHome size={20} /> User Home
             </NavLink>
@@ -40,7 +72,14 @@ const Dashboard = () => {
               My Bookings
             </NavLink>
           </li>
+            </>
+          }
+
+
             <div className="divider"></div>
+
+
+
             <li className="p-2">
             <NavLink to="/">
               <FaHome size={20} /> Home
