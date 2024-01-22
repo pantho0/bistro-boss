@@ -75,6 +75,11 @@ async function run() {
     const result = await userCollection.insertOne(user);
     res.send(result);
   })
+  // to load all users from db to client
+  app.get('/users', async(req,res)=>{
+    const result = await userCollection.find().toArray();
+    res.send(result)
+  })
 
 
     // Send a ping to confirm a successful connection
