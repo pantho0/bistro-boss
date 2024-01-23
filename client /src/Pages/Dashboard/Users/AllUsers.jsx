@@ -14,7 +14,29 @@ const AllUsers = () => {
   });
 
   const handleMakeAdmin = (user) =>{
-
+    Swal.fire({
+      title: "Are you sure to?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Make Admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/users/admin/${user._id}`).then((res) => {
+          console.log(res.data);
+          if (res?.data?.deletedCount > 0) {
+            refetch()
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your user has been updated to Admin Role.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   }
 
   const handleDeleteUser = (user) =>{
