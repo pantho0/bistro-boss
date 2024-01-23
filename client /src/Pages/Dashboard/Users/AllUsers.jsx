@@ -13,6 +13,10 @@ const AllUsers = () => {
     },
   });
 
+  const handleMakeAdmin = (user) =>{
+
+  }
+
   const handleDeleteUser = (user) =>{
     Swal.fire({
       title: "Are you sure to?",
@@ -24,7 +28,7 @@ const AllUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/carts/${user._id}`).then((res) => {
+        axiosSecure.delete(`/users/${user._id}`).then((res) => {
           console.log(res.data);
           if (res?.data?.deletedCount > 0) {
             refetch()
@@ -74,7 +78,7 @@ const AllUsers = () => {
                 <td>
                   <button
                     onClick={() => handleDeleteUser(user)}
-                    className="btn btn-ghost btn-xs"
+                    className="btn btn-ghost btn-xs "
                   >
                     <FaTrash color="red" size={18} />
                   </button>
