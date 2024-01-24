@@ -58,7 +58,17 @@ async function run() {
         req.decoded = decoded;
         next()
       })
-      
+    }
+    //middleware for admin verification 
+    const verifyAdmin = async(req,res,next)=>{
+      const email = req.decoded.email;
+      const query = {email : email};
+      const user = await userCollection.findOne(query)
+      const isAdmin = user?.role === 'admin'
+      if(!isAdmin){
+        res.status(403).send({message:'Unauthorized Access'})
+      }
+      next();
     }
 
     //to load all menu items
@@ -120,19 +130,19 @@ async function run() {
   })
 
   // to load all users from db to client
-  app.get('/users', verifyToken, async(req,res)=>{
+  app.get('/users', verifyToken, verifyAdmin, async(req,res)=>{
     const result = await userCollection.find().toArray();
     res.send(result)
   })
   //for delete a user 
-  app.delete('/users/:id', async(req,res)=>{
+  app.delete('/users/:id', verifyToken, verifyAdmin, async(req,res)=>{
     const id = req.params.id;
     const query = {_id: new ObjectId(id)};
     const result = await userCollection.deleteOne(query);
     res.send(result)
   })
   //for update a user
-  app.patch('/users/admin/:id', async(req,res)=>{
+  app.patch('/users/admin/:id', verifyToken, verifyAdmin, async(req,res)=>{
     const id = req.params.id;
     const filter = {_id: new ObjectId(id)};
     const updateDoc = {
