@@ -32,6 +32,17 @@ async function run() {
     const reviewCollection = client.db("bistroDB").collection("reviews")
     const cartCollection = client.db("bistroDB").collection("carts")
 
+
+
+
+    //json web token
+    app.post('/jwt', async(req,res)=>{
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {expiresIn: '1h'})
+      res.send({token})
+    })
+
+
     //to load all menu items
     app.get("/menu", async(req,res)=>{
         const result = await menuCollection.find().toArray();
