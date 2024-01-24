@@ -43,6 +43,23 @@ async function run() {
       res.send({token})
     })
 
+    //middleware of json
+    const verifyToken = (req, res, next) =>{
+      console.log('inside verify token', req.headers.authorization);
+      if(!req.headers.authorization){
+        return res.status(401).send({message: 'Forbidden Access'})
+      }
+      const token = req.headers.authorization.split(' ')[1];
+      
+      jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, decoded)=>{
+        if(err){
+          return res.status(401).send({message: 'Forbidden Access'})
+        }
+        req.decoded = decoded;
+        next()
+      })
+      
+    }
 
     //to load all menu items
     app.get("/menu", async(req,res)=>{
@@ -88,7 +105,7 @@ async function run() {
     res.send(result);
   })
   // to load all users from db to client
-  app.get('/users', async(req,res)=>{
+  app.get('/users', verifyToken, async(req,res)=>{
     const result = await userCollection.find().toArray();
     res.send(result)
   })
