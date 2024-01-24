@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+var jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const app = express();
@@ -38,7 +39,7 @@ async function run() {
     //json web token
     app.post('/jwt', async(req,res)=>{
       const user = req.body;
-      const token = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {expiresIn: '1h'})
+      const token =jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {expiresIn: '1h'})
       res.send({token})
     })
 
@@ -77,7 +78,7 @@ async function run() {
   //to save user data in the db
   app.post('/users', async(req,res)=>{
     const user = req.body;
-    const email = user.email;
+    const email = user?.email;
     const query = {email: email};
     const isExistUser = await userCollection.findOne(query);
     if(isExistUser){
