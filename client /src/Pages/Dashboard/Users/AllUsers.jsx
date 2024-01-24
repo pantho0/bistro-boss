@@ -13,7 +13,7 @@ const AllUsers = () => {
     },
   });
 
-  const handleMakeAdmin = (user) =>{
+  const handleMakeAdmin = (user) => {
     Swal.fire({
       title: "Are you sure to?",
       text: "You won't be able to revert this!",
@@ -24,12 +24,12 @@ const AllUsers = () => {
       confirmButtonText: "Yes, Make Admin!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/users/admin/${user._id}`).then((res) => {
+        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
           console.log(res.data);
-          if (res?.data?.deletedCount > 0) {
-            refetch()
+          if (res?.data?.modifiedCount > 0) {
+            refetch();
             Swal.fire({
-              title: "Deleted!",
+              title: "Success!",
               text: "Your user has been updated to Admin Role.",
               icon: "success",
             });
@@ -37,9 +37,9 @@ const AllUsers = () => {
         });
       }
     });
-  }
+  };
 
-  const handleDeleteUser = (user) =>{
+  const handleDeleteUser = (user) => {
     Swal.fire({
       title: "Are you sure to?",
       text: "You won't be able to revert this!",
@@ -53,7 +53,7 @@ const AllUsers = () => {
         axiosSecure.delete(`/users/${user._id}`).then((res) => {
           console.log(res.data);
           if (res?.data?.deletedCount > 0) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your user has been deleted.",
@@ -63,8 +63,7 @@ const AllUsers = () => {
         });
       }
     });
-  }
-
+  };
 
   return (
     <>
@@ -75,8 +74,8 @@ const AllUsers = () => {
         <table className="table table-zebra">
           {/* head */}
           <thead>
-            <tr>
-              <th></th>
+            <tr className="text-center">
+              <th>#</th>
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
@@ -85,17 +84,17 @@ const AllUsers = () => {
           </thead>
           <tbody>
             {users.map((user, idx) => (
-              <tr key={user._id}>
+              <tr key={user._id} className="text-center">
                 <th>{idx + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                <button
+                  { user.role === "admin" ? "ADMIN" : <button
                     onClick={() => handleMakeAdmin(user)}
                     className="btn btn-ghost btn-xs bg-orange-400 hover:bg-orange-700"
                   >
                     <FaUser color="white" size={18} />
-                  </button>
+                  </button>}
                 </td>
                 <td>
                   <button
