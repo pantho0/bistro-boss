@@ -6,7 +6,7 @@ require('dotenv').config()
 const app = express();
 const port = process.env.PORT || 5000;
 
-// middleswares
+// middlewares
 app.use(cors())
 app.use(express.json())
 
@@ -45,7 +45,6 @@ async function run() {
 
     //middleware of json
     const verifyToken = (req, res, next) =>{
-      console.log('inside verify token', req.headers.authorization);
       if(!req.headers.authorization){
         return res.status(401).send({message: 'Forbidden Access'})
       }
