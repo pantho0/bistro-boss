@@ -86,6 +86,30 @@ async function run() {
       const result = await menuCollection.deleteOne(query);
       res.send(result);
     })
+    app.get("/menu/:id", async(req,res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await menuCollection.findOne(query)
+      res.send(result)
+    })
+    app.patch("/menu/:id", async(req,res)=>{
+      const item = req.body;
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const updateDoc = {
+        $set:{
+          name: item.name,
+          recipe : item.recipe,
+          category: item.category,
+          price: item.price,
+          image: item.image
+        }
+      }
+      const result = await menuCollection.updateOne(filter, updateDoc)
+      res.send(result)
+    })
+
+
     // to load all reviews
     app.get('/reviews', async(req,res)=>{
       const result = await reviewCollection.find().toArray()
