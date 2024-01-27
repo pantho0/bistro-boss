@@ -2,6 +2,7 @@ import { FaTrash } from "react-icons/fa";
 import useCart from "../../../Hooks /useCart";
 import useAxiosSecure from "../../../Hooks /useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -21,7 +22,7 @@ const Cart = () => {
         axiosSecure.delete(`/carts/${id}`).then((res) => {
           console.log(res.data);
           if (res?.data?.deletedCount > 0) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -37,7 +38,20 @@ const Cart = () => {
       <div className="flex justify-evenly items-center text-3xl font-medium">
         <p>Total Orders : {cart.length}</p>
         <p>Total Price : {totalPrice}</p>
-        <button className="btn btn-info bg-orange-400 border-none">Pay</button>
+        <Link to="/dashboard/payment">
+        {cart.length ? (
+          <button className="btn btn-info bg-orange-400 border-none">
+            Pay
+          </button>
+        ) : (
+          <button
+            disabled
+            className="btn disabled btn-info bg-orange-400 border-none"
+          >
+            Pay
+          </button>
+        )}
+        </Link>
       </div>
       <div className="overflow-x-auto">
         <table className="table">
@@ -72,7 +86,10 @@ const Cart = () => {
                 </td>
                 <td>{item?.price}</td>
                 <th>
-                  <button onClick={()=>handleDelete(item._id)} className="btn btn-ghost btn-xs">
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="btn btn-ghost btn-xs"
+                  >
                     <FaTrash color="red" size={18} />
                   </button>
                 </th>
