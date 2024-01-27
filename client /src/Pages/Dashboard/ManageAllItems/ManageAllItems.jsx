@@ -18,7 +18,7 @@ const ManageAllItems = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async(result) => {
       if (result.isConfirmed) {
-        const res = axiosSecure.delete(`/menu/${item._id}`)
+        const res = await axiosSecure.delete(`/menu/${item._id}`)
         if(res.data.deletedCount > 0){
           Swal.fire({
             title: "Deleted!",

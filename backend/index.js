@@ -70,7 +70,7 @@ async function run() {
       next();
     }
 
-    //to load all menu items
+    //menu items related api
     app.get("/menu", async(req,res)=>{
         const result = await menuCollection.find().toArray();
         res.send(result)
@@ -79,6 +79,12 @@ async function run() {
       const menu = req.body;
       const result = await menuCollection.insertOne(menu);
       res.send(result)
+    })
+    app.delete("/menu/:id", async(req,res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await menuCollection.deleteOne(query);
+      res.send(result);
     })
     // to load all reviews
     app.get('/reviews', async(req,res)=>{
