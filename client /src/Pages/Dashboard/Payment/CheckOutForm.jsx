@@ -7,6 +7,7 @@ import useAuth from "../../../Hooks /useAuth";
 const CheckOutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState('')
+  const [transactionId, setTransactionId] = useState('')
   const {user}= useAuth()
   const stripe = useStripe();
   const elements = useElements();
@@ -18,7 +19,6 @@ const CheckOutForm = () => {
   useEffect(()=>{
     axiosSecure.post('/create-payment-intent', {price:totalPrice})
     .then(res =>{
-        console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret)
     })
   },[axiosSecure, totalPrice])
@@ -62,7 +62,23 @@ const CheckOutForm = () => {
       console.log('confirming card payment error ===>',cardError);
     }else{
       console.log('confirming card payment success ===>',paymentIntent);
+      setTransactionId(paymentIntent.id)
+
+      //now save the payment info in DB
+      const payment = {
+        email : user.email,
+        price : totalPrice,
+        transactionId : paymentIntent.id,
+        date : new Date(), // convert date with utc by moment js
+        cartIds : cart.map(item => item._id),
+        menuIds : cart.map(item => item.menuId),
+        status : "pending"
+      }
+      const res = await axiosSecure.post('/payment', payment)
+      console.log('payment saved', res.data);
+
     }
+
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -90,6 +106,7 @@ const CheckOutForm = () => {
         Pay
       </button>
       <p className="text-red-600 font-bold">{error}</p>
+      {transactionId && <p className="text-green-500 font-bold">Your Transaction id is : {transactionId}</p> }
     </form>
   );
 };

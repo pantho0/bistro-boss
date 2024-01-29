@@ -30,6 +30,7 @@ async function run() {
     const menuCollection = client.db("bistroDB").collection("menu");
     const reviewCollection = client.db("bistroDB").collection("reviews");
     const cartCollection = client.db("bistroDB").collection("carts");
+    const paymentCollection = client.db("bistroDB").collection("payments");
 
     //json web token
     app.post("/jwt", async (req, res) => {
@@ -193,22 +194,33 @@ async function run() {
     //payment intent
     //==================
 
-      app.post('/create-payment-intent', async(req,res)=>{
-        const {price} = req.body;
-        const amount = parseInt(price*100);
-        const paymentIntent = await stripe.paymentIntents.create({
-          amount : amount,
-          currency: 'usd',
-          payment_method_types:["card"]
-        })
-        res.send({
-          clientSecret: paymentIntent.client_secret
-        })
-      })
+    app.post("/create-payment-intent", async (req, res) => {
+      const { price } = req.body;
+      const amount = parseInt(price * 100);
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount,
+        currency: "usd",
+        payment_method_types: ["card"],
+      });
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    });
+    
 
+    app.post('/payment', async(req,res)=>{
+      const payment = req.body;
+      const paymentResult = await paymentCollection.insertOne(payment);
+      console.log('payment info', payment);
+      //for delete cart items
+      const query = {_id :{
+        $in: payment.cartIds.map(id=> new ObjectId(id))
+      }}
+      const deleteCartItem = await cartCollection.deleteMany(query)
+    res.send({paymentResult, deleteCartItem})
+    })
 
-
-
+    //===========================
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
