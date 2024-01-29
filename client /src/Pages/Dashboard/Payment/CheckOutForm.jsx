@@ -4,11 +4,13 @@ import useAxiosSecure from "../../../Hooks /useAxiosSecure";
 import useCart from "../../../Hooks /useCart";
 import useAuth from "../../../Hooks /useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState('')
   const [transactionId, setTransactionId] = useState('')
+  const navigate = useNavigate()
   const {user}= useAuth()
   const stripe = useStripe();
   const elements = useElements();
@@ -78,7 +80,6 @@ const CheckOutForm = () => {
         status : "pending"
       }
       const res = await axiosSecure.post('/payment', payment)
-      console.log('payment saved', res.data);
       refetch()
       if(res.data.paymentResult.insertedId){
         Swal.fire({
@@ -89,7 +90,7 @@ const CheckOutForm = () => {
           timer: 1500
         });
       }
-
+      navigate("/dashboard/paymentHistory")
 
     }
 

@@ -15,6 +15,7 @@ import AdminRoute from "./AdminRoute";
 import ManageAllItems from "../Pages/Dashboard/ManageAllItems/ManageAllItems";
 import UpdateItem from "../Pages/Dashboard/Update/UpdateItem";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path : "paymentHistory",
+        element: <PaymentHistory/>
       },
       //for admin only routes
       // load all users

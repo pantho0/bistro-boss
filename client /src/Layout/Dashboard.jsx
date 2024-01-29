@@ -5,8 +5,7 @@ import {
   FaUsers,
   FaUtensils,
 } from "react-icons/fa";
-import { TbBrandBooking } from "react-icons/tb";
-import { FaBook, FaRegPenToSquare, FaRegStarHalfStroke } from "react-icons/fa6";
+import { FaBook, FaDollarSign, FaRegPenToSquare, FaRegStarHalfStroke } from "react-icons/fa6";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks /useCart";
@@ -72,9 +71,9 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="p-2">
-                <NavLink to="/dashboard/mybookings">
-                  <TbBrandBooking size={20} />
-                  My Bookings
+                <NavLink to="/dashboard/paymentHistory">
+                  <FaDollarSign size={20} />
+                  Payment History
                 </NavLink>
               </li>
             </>
