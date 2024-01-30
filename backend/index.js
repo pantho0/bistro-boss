@@ -206,26 +206,50 @@ async function run() {
         clientSecret: paymentIntent.client_secret,
       });
     });
-    
-    app.get('/payments/:email', verifyToken, async(req,res)=>{
-      const query = {email: req.params.email};
-      if(req.params.email !== req.decoded.email){
-        return res.status(403).send({message: 'forbidden access'})
+
+    app.get("/payments/:email", verifyToken, async (req, res) => {
+      const query = { email: req.params.email };
+      if (req.params.email !== req.decoded.email) {
+        return res.status(403).send({ message: "forbidden access" });
       }
       const result = await paymentCollection.find(query).toArray();
-      res.send(result)
-    })
+      res.send(result);
+    });
 
-    app.post('/payment', async(req,res)=>{
+    app.post("/payment", async (req, res) => {
       const payment = req.body;
       const paymentResult = await paymentCollection.insertOne(payment);
       //for delete cart items
-      const query = {_id :{
-        $in: payment.cartIds.map(id=> new ObjectId(id))
-      }}
-      const deleteCartItem = await cartCollection.deleteMany(query)
-    res.send({paymentResult, deleteCartItem})
-    })
+      const query = {
+        _id: {
+          $in: payment.cartIds.map((id) => new ObjectId(id)),
+        },
+      };
+      const deleteCartItem = await cartCollection.deleteMany(query);
+      res.send({ paymentResult, deleteCartItem });
+    });
+
+    //===========================
+    //Admin Stat API
+    //===========================
+    app.get("/admin-stats", verifyToken, verifyAdmin, async (req, res) => {
+      const users = await userCollection.estimatedDocumentCount();
+      const menuItems = await menuCollection.estimatedDocumentCount();
+      const orders = await paymentCollection.estimatedDocumentCount();
+      const result = await paymentCollection.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalRevenue:{
+              $sum : '$price'
+            },
+          },
+        },
+      ]).toArray();
+      const revenue = result.length > 0 ? result[0].totalRevenue.toFixed(2) : 0; 
+
+      res.send({ users, menuItems, orders, revenue });
+    });
 
     //===========================
 

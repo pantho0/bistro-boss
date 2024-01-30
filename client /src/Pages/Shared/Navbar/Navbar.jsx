@@ -4,12 +4,13 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import useCart from "../../../Hooks /useCart";
 import { FaShoppingCart } from "react-icons/fa";
+import useAdmin from "../../../Hooks /useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [cart] = useCart()
+  const [isAdmin] = useAdmin() 
   const handleLogout = () => {
-    console.log("clicked");
     logOut()
       .then(() => {
         Swal.fire({
@@ -35,9 +36,14 @@ const Navbar = () => {
       <li>
         <Link to={"/order/salad"}>Order</Link>
       </li>
-      <li>
-        <Link to={"/secret"}>Secret</Link>
-      </li>
+      
+      {
+        user && isAdmin && <li><Link to={"/dashboard/adminhome"}>Dashboard</Link></li>
+      }
+      {
+        user && !isAdmin && <li><Link to={"/dashboard/userhome"}>Dashboard</Link></li>
+      }
+     
       {user ? (
         <>
           <button
