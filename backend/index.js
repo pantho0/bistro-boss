@@ -251,6 +251,48 @@ async function run() {
       res.send({ users, menuItems, orders, revenue });
     });
 
+    //Using Aggregate  Pipeline 
+    app.get("/order-stats", async(req,res)=>{
+      const result = await paymentCollection.aggregate([
+        {
+          $unwind : '$menuIds'
+        },
+        {
+          $addFields: {
+            menuIdObjectIds: {
+              $toObjectId: '$menuIds'
+            }
+          }
+        },
+        {
+          $lookup : {
+            from: 'menu',
+            localField : 'menuIdObjectIds',
+            foreignField : '_id',
+            as : 'menuItem'
+          }
+        },
+        {
+          $unwind : '$menuItem'
+        },
+        {
+          $group : {
+            _id : '$menuItem.category',
+            quantity : {
+              $sum : 1
+            },
+            revenue : {
+              $sum : '$menuItem.price'
+            }
+          }
+        }
+      ]).toArray();
+      res.send(result )
+    })
+
+
+
+
     //===========================
 
     // Send a ping to confirm a successful connection
