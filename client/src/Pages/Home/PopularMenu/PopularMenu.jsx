@@ -1,6 +1,7 @@
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import useMenu from "../../../Hooks/useMenu";
 import MenuItems from "../../Shared/MenuItems/MenuItems";
-import useMenu from "../../../Hooks /useMenu";
+
 import { Link } from "react-router-dom";
 
 

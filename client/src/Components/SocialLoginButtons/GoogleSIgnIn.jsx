@@ -1,7 +1,7 @@
 import { FaGoogle } from "react-icons/fa";
-import useAuth from "../../Hooks /useAuth";
+import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../Hooks /useAxiosPublic";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const GoogleSIgnIn = () => {
   const { googleLogin } = useAuth();

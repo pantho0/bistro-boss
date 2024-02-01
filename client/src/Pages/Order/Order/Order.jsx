@@ -3,7 +3,7 @@ import orderCoverImg from "../../../assets/shop/banner2.jpg";
 import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import useMenu from "../../../Hooks /useMenu";
+import useMenu from "../../../Hooks/useMenu";
 import FoodItem from "../../../Components/FoodCard/FoodItem";
 import { useParams } from "react-router-dom";
 

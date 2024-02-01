@@ -1,8 +1,8 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import useMenu from "../../../Hooks /useMenu";
+import useMenu from "../../../Hooks/useMenu";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../Hooks /useAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 
 const ManageAllItems = () => {

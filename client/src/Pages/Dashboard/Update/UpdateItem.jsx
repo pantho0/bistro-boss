@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import useAxiosPublic from "../../../Hooks /useAxiosPublic";
-import useAxiosSecure from "../../../Hooks /useAxiosSecure";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { FaUtensils } from "react-icons/fa";

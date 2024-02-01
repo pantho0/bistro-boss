@@ -8,8 +8,8 @@ import {
 import { FaBook, FaDollarSign, FaRegPenToSquare, FaRegStarHalfStroke } from "react-icons/fa6";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { NavLink, Outlet } from "react-router-dom";
-import useCart from "../Hooks /useCart";
-import useAdmin from "../Hooks /useAdmin";
+import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();

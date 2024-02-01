@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import Swal from "sweetalert2";
-import useCart from "../../../Hooks /useCart";
+
+
 import { FaShoppingCart } from "react-icons/fa";
-import useAdmin from "../../../Hooks /useAdmin";
+import useAdmin from "../../../Hooks/useAdmin";
+import useCart from "../../../Hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);

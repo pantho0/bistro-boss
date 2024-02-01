@@ -5,7 +5,7 @@ import pizzaImg from "../../../assets/menu/pizza-bg.jpg";
 import saladImg from "../../../assets/menu/salad-bg.jpg";
 import soupImg from "../../../assets/menu/soup-bg.jpg";
 import MenuCategory from "../MenuCategory/MenuCategory";
-import useMenu from "../../../Hooks /useMenu";
+import useMenu from "../../../Hooks/useMenu";
 
 
 const Menu = () => {

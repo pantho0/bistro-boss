@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import { FaUtensils } from "react-icons/fa";
-import useAxiosPublic from "../../../Hooks /useAxiosPublic";
-import useAxiosSecure from "../../../Hooks /useAxiosSecure";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;

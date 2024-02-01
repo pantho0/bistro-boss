@@ -1,8 +1,10 @@
-import useAuth from "../../../Hooks /useAuth";
+// import useAuth from "../../../Hooks /useAuth";
+
+import useAuth from "../../../Hooks/useAuth";
 
 
 const UserHome = () => {
-    const {user} = useAuth()
+    const {user} = useAuthh()
     return (
         <div>
             <h2 className="text-3xl">

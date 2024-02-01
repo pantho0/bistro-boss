@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../../Hooks /useAxiosPublic";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import GoogleSIgnIn from "../../Components/SocialLoginButtons/GoogleSIgnIn";
 
 const Signup = () => {
