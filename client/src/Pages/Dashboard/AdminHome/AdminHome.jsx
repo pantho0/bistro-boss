@@ -8,8 +8,6 @@ import {
   CartesianGrid,
   PieChart,
   Pie,
-  Sector,
-  ResponsiveContainer,
   Legend,
 } from "recharts";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
@@ -168,7 +166,7 @@ const AdminHome = () => {
         <div className="w-1/2">
           <BarChart
             width={500}
-            height={300}
+            height={400}
             data={chartData}
             margin={{
               top: 20,
@@ -193,7 +191,7 @@ const AdminHome = () => {
           </BarChart>
         </div>
         <div className="w-1/2">
-          <PieChart width={400} height={400}>
+          <PieChart width={400} height={300}>
             <Pie
               data={pieChartData}
               cx="50%"
