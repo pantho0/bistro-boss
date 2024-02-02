@@ -5,11 +5,56 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const app = express();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const nodemailer = require("nodemailer");
 const port = process.env.PORT || 5000;
 
 // middlewares
 app.use(cors());
 app.use(express.json());
+
+
+//mail sending function :
+const sendMail = (emailAddress, emailData) =>{
+  //creating transporter for send email
+  const transporter = nodemailer.createTransport({
+    service : 'gmail',
+    host : 'smtp.gmail.com',
+    port : 587,
+    secure : false,
+    auth : {
+      user : process.env.MAIL,
+      pass : process.env.PASS,
+    }
+  })
+    // verifying it is working or not 
+
+    transporter.verify((error, success)=>{
+      if(error){
+        console.log(error)
+      }else{
+        console.log('server is ready to take our email', success)
+      }
+    })
+  
+  // mail body which will be sent
+  const mailBody = {
+    from : process.env.MAIL,
+    to : emailAddress,
+    subject : emailData?.subject,
+    html : `<p>${emailData?.message}</p>`
+
+  }
+
+  //calling the nodemailer send mail function
+  transporter.sendMail(mailBody, (error,info)=>{
+    if(error){
+      console.log(error)
+    }else{
+      console.log("Email Sent : "+info.response)
+    }
+  })
+ 
+}
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.guubgk2.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -218,6 +263,7 @@ async function run() {
 
     app.post("/payment", async (req, res) => {
       const payment = req.body;
+      const email = payment.email;
       const paymentResult = await paymentCollection.insertOne(payment);
       //for delete cart items
       const query = {
@@ -226,6 +272,14 @@ async function run() {
         },
       };
       const deleteCartItem = await cartCollection.deleteMany(query);
+
+      // now send confirmation email
+      sendMail(email,{
+        subject: 'Booking Successful!',
+        message: `Room Ready, chole ashen vai, apnar Transaction Id: `,
+      })
+
+
       res.send({ paymentResult, deleteCartItem });
     });
 
