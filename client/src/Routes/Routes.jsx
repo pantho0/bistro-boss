@@ -93,7 +93,7 @@ export const router = createBrowserRouter([
       {
         path: "updateItems/:id",
         element: <AdminRoute><UpdateItem/></AdminRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+        loader: ({params}) => fetch(`https://backend-eight-mu.vercel.app/menu/${params.id}`)
       },
       {
         path: "payment",

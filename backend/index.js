@@ -276,7 +276,7 @@ async function run() {
       // now send confirmation email
       sendMail(email,{
         subject: 'Booking Successful!',
-        message: `Room Ready, chole ashen vai, apnar Transaction Id: `,
+        message: `Your Transaction Id:${payment?.transactionId} `,
       })
 
 
