@@ -1,15 +1,15 @@
 const express = require("express");
 const applyMiddleWare = require("./middlewares/applyMiddleware");
 const connectDB = require("./db/connectDB");
+const createCookieToken = require("./api/v1/authentication");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-const authenticationRoutes = require("./routes/authentication/index")
 
 applyMiddleWare(app);
 
-app.use(authenticationRoutes)
+app.use(createCookieToken)
 
 app.get("/health", (req, res) => {
   res.send("Bistro Boss Restaurant Server is in operation");
