@@ -3,6 +3,7 @@ const applyMiddleWare = require("./middlewares/applyMiddleware");
 const connectDB = require("./db/connectDB");
 const authenticationRoutes = require("./routes/authentication/index.js");
 const servicesRoutes = require ('./routes/menus/index')
+const singleMenuGet = require('./routes/singleMenu/index.js')
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -12,7 +13,7 @@ applyMiddleWare(app);
 
 app.use(authenticationRoutes)
 app.use(servicesRoutes)
-
+app.use(singleMenuGet)
 
 
 
