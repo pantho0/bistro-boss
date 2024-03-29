@@ -2,6 +2,7 @@ const express = require("express");
 const applyMiddleWare = require("./middlewares/applyMiddleware");
 const connectDB = require("./db/connectDB");
 const createCookieToken = require("./api/v1/authentication");
+const servicesRoutes = require ('./routes/services/index')
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -9,7 +10,12 @@ const port = process.env.PORT || 5000;
 
 applyMiddleWare(app);
 
-app.use(createCookieToken)
+// app.use(createCookieToken)
+app.use(servicesRoutes)
+
+
+
+
 
 app.get("/health", (req, res) => {
   res.send("Bistro Boss Restaurant Server is in operation");

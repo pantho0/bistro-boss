@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const MenuSchema = new Schema({
   name: {
@@ -32,4 +32,7 @@ const MenuSchema = new Schema({
 //   ],
 });
 
-const Menu = mongoose.model('Menu', MenuSchema)
+const Menu = model('Menu', MenuSchema)
+
+module.exports = Menu;
+
