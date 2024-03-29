@@ -6,7 +6,11 @@ const generateToken = require("../../../Utils/generateToken");
 const createCookieToken = async (req, res) => {
   const user = req.body;
   const token = generateToken(user)
-  res.send({ token });
+  res.cookie('token', token, {
+    httpOnly : true,
+    secure : true,
+    sameSite : none
+  }).send({success:true})
 };
 
 
