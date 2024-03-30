@@ -1,13 +1,9 @@
 const express = require('express');
 const Menu = require('../../models/Menu.models');
 const { ObjectId } = require('mongodb');
+const findSingleMenu = require('../../api/v1/menus/controller/findSingleMenu');
 const router = express.Router()
 
-router.get("/menu/:id", async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: new ObjectId(id) };
-    const result = await Menu.findById(query);
-    res.send(result);
-  });
+router.get("/menu/:id", findSingleMenu);
 
 module.exports = router;
